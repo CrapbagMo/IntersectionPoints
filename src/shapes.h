@@ -14,7 +14,6 @@ struct pair_hash {		// 重载hash
 	}
 };
 
-
 using Vote = pair<double, double>;
 using Unordered_map = unordered_map<Vote, int, pair_hash>;
 typedef pair<double, double> point;
@@ -55,10 +54,6 @@ public:
 		}
 	}
 
-	bool parallel(line another) {		
-		return A * another.B == B * another.A;
-	}
-
 	double getA() {
 		return A;
 	}
@@ -82,16 +77,54 @@ public:
 	}
 };
 
-/*class circle {
+class circle {
 private:
-	int x0, y0, r;
+	double x0, y0, r;
 
 public:
 
-	void generate_circle(int x0, int y0, int r) {
+	void generate_circle(double x0, double y0, double r) {
 		this->x0 = x0;
 		this->y0 = y0;
 		this->r = r;
+	}
+
+	void getIntersectWithLine(line Line) {
+		double A = Line.getA();
+		double B = Line.getB();
+		double C = Line.getC();
+
+		line newline;
+		newline.generate_line(B, -A, A * y0 - B * x0);
+		point center = make_pair(x0, y0);
+		double dis = newline.getDistance(center);
+
+		double x = (newline.getC() * B - C * newline.getB()) / (A * newline.getB() - newline.getA() * B);
+		double y = (C * newline.getA() - newline.getA()) / (A * newline.getB() - newline.getA() * B);
+		point foot = make_pair(x, y);
+
+		//根据圆心到直线的距离判断是否有交点
+
+		if (dis < r) {
+			// 两个交点
+			pair<double, double> mini = make_pair(B / sqrt(A * A + B * B), -A / sqrt(A * A + B * B));
+			double base = sqrt(r * r - dis * dis);
+			point p1;
+			p1 = make_pair(foot.first + mini.first * base,
+				foot.second + mini.second * base);
+			point p2;
+			p2 = make_pair(foot.first - mini.first * base,
+				foot.second - mini.second * base);
+			intersect_points[p1] = 1;
+			intersect_points[p2] = 1;
+		}
+		else if(dis == r) {
+			// 垂足为交点
+			intersect_points[foot] = 1;
+		}
+		else {	//无交点
+			return;
+		}
 	}
 
 	void getIntersectWithCircle(circle another) {
@@ -106,9 +139,12 @@ public:
 		else {
 			double dis = sqrt((x1 - x0) * (x1 - x0) +
 				(y1 - y0) * (y1 - y0));
-			if (dis > r + r1 || dis < abs(r - r1)) {
-
+			if (dis <= r + r1 || dis >= abs(r - r1)) {	// 外交或内交
+				line newline;
+				newline.generate_line(2 * x1 - 2 * x0, 2 * y1 - 2 * y0, 
+					-x1 * x1 + x0 * x0 - y1 * y1 + y0 * y0 + r1 * r1 - r * r);
+				getIntersectWithLine(newline);
 			}
 		}
 	}
-};*/
+};
