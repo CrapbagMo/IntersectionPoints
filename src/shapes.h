@@ -97,7 +97,7 @@ public:
 		line newline;
 		newline.generate_line(B, -A, A * y0 - B * x0);
 		point center = make_pair(x0, y0);
-		double dis = newline.getDistance(center);
+		double dis = Line.getDistance(center);
 
 		double x = (newline.getC() * B - C * newline.getB()) / (A * newline.getB() - newline.getA() * B);
 		double y = (C * newline.getA() - newline.getA()) / (A * newline.getB() - newline.getA() * B);
