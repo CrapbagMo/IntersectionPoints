@@ -67,7 +67,7 @@ public:
 	}
 
 	double getDistance(point p) {	// 点到直线的距离
-		return (A * p.first + B * p.second + C) / sqrt(A * A + B * B);
+		return abs((A * p.first + B * p.second + C) / sqrt(A * A + B * B));
 	}
 
 	void getIntersectWithLine(line another) {
@@ -129,9 +129,9 @@ public:
 
 	void getIntersectWithCircle(circle another) {
 
-		int x1 = another.x0;
-		int y1 = another.y0;
-		int r1 = another.r;
+		double x1 = another.x0;
+		double y1 = another.y0;
+		double r1 = another.r;
 
 		if (x0 == x1 && y0 == y1) {	//同心
 			return;			//半径相等也记0

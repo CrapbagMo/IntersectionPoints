@@ -51,6 +51,11 @@ int main(int argc, char *argv[])
 					Line.getIntersectWithLine(it.first);
 				}
 			}
+
+			for (circle it : circles) {
+				it.getIntersectWithLine(Line);
+			}
+
 			lines.push_back(make_pair(Line, slope));
 		}
 
