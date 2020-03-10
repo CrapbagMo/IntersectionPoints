@@ -14,17 +14,17 @@ int main(int argc, char *argv[])
 	ifstream in;
 	ofstream out;
 
-	in.open("in_test.txt");
-	out.open("out_test.txt");
+	/*in.open("in_test.txt");
+	out.open("out_test.txt");*/
 
-	/*for (int i = 0; i < argc; i++) {	// 代替getopt()
+	for (int i = 0; i < argc; i++) {	// 代替getopt()
 		if (strcmp(argv[i], "-i") == 0) {
 			in.open(argv[++i]);
 		}
 		if (strcmp(argv[i], "-o") == 0) {
 			out.open(argv[++i]);
 		}
-	}*/
+	}
 
 	int n;
 	in >> n;
