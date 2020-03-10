@@ -7,7 +7,7 @@ using namespace std;
 
 struct pair_hash {		// 重载hash
 	template <class T1, class T2>
-	std::size_t operator () (const std::pair<T1, T2>& p) {
+	std::size_t operator () (const std::pair<T1, T2>& p) const {
 		auto h1 = std::hash<T1>{}(p.first);
 		auto h2 = std::hash<T2>{}(p.second);
 		return h1 ^ h2;
@@ -31,10 +31,10 @@ private :		// 标准方程表示
 
 public:
 
-	void generate_line(int x1, int y1, int x2, int y2) {		//置ABC
-		A = (double)y2 - y1;
-		B = (double)x1 - x2;
-		C = (double)x2 * y1 - x1 * y2;
+	void generate_line(double x1, double y1, double x2, double y2) {		//置ABC
+		A = y2 - y1;
+		B = x1 - x2;
+		C = x2 * y1 - x1 * y2;
 	}
 
 	void generate_line(double a, double b, double c) {		//置ABC
